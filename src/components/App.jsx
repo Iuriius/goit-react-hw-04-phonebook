@@ -7,12 +7,10 @@ import ContactsList from './ContactsList';
 import Filter from './Filter';
 
 export default function App() {
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState(() =>
+    JSON.parse(localStorage.getItem('contacts'))
+  );
   const [filter, setFilter] = useState('');
-
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
 
   function addNewContact(data) {
     const newContact = {
@@ -26,6 +24,10 @@ export default function App() {
           contacts: [...prevState.contacts, newContact],
         }));
   }
+
+  useEffect(() => {
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
 
   const deleteContact = id => {
     setContacts(prevState => prevState.filter(contact => contact.id !== id));
