@@ -7,8 +7,8 @@ import ContactsList from './ContactsList';
 import Filter from './Filter';
 
 export default function App() {
-  const [contacts, setContacts] = useState(() =>
-    JSON.parse(localStorage.getItem('contacts'))
+  const [contacts, setContacts] = useState(
+    () => JSON.parse(localStorage.getItem('contacts')) || []
   );
   const [filter, setFilter] = useState('');
 
@@ -20,9 +20,7 @@ export default function App() {
     toast.success(`${data.name} added`);
     contacts.some(({ name }) => name === data.name)
       ? toast.error(`${data.name} is already in contacts`)
-      : this.setState(prevState => ({
-          contacts: [...prevState.contacts, newContact],
-        }));
+      : setContacts(prevState => contacts([...prevState.contacts, newContact]));
   }
 
   useEffect(() => {
