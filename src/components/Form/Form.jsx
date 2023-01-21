@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Label, Input, Button, FormContainer } from './Form.styled';
 
-export default function Form() {
+export default function Form({ addNewContact }) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -18,11 +18,7 @@ export default function Form() {
 
   const handleSubmit = event => {
     event.preventDefault();
-    /**
-    |============================
-    | думаю треба дописати тут
-    |============================
-    */
+    addNewContact({ name, number });
     setName('');
     setNumber('');
   };
