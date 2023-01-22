@@ -23,17 +23,15 @@ export default function App() {
     };
     contacts.some(({ name }) => name === data.name)
       ? toast.error(`${data.name} is already in contacts`)
-      : setContacts(prevState => ({ ...prevState.contacts, newContact }));
+      : setContacts(prevState => [...prevState, newContact]);
   };
 
   const deleteContact = id => {
-    setContacts(prevState => ({
-      contacts: prevState.contacts.filter(contact => contact.id !== id),
-    }));
+    setContacts(prevState => prevState.filter(contact => contact.id !== id));
   };
 
   const changeFilter = event => {
-    setFilter({ filter: event.currentTarget.value });
+    setFilter(event.currentTarget.value);
   };
 
   const getContacts = () => {
